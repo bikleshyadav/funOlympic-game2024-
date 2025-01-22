@@ -1,0 +1,376 @@
+{% extends "myApp/base.html" %}
+{% block title %}
+|Blog&News
+  
+{% endblock title %}
+|Blog&News
+{% block content %}
+  {% load static %}
+
+	<!-- hero section -->
+	<section id="hero">
+
+		<div class="container-xl">
+
+			<div class="row gy-4">
+
+				<div class="col-lg-8">
+					
+					<!-- featured post large -->
+					{% for i in main %}
+					  
+					<div class="post featured-post-lg">
+						<div class="details clearfix">
+							<a href="{% url 'single' i.id %}" class="category-badge">{{i.sports}}</a>
+							<h2 class="post-title"><a href="blog-single.html">{{i.desc|truncatewords:20|safe}}</a></h2>
+							<ul class="meta list-inline mb-0">
+								<li class="list-inline-item"><a href="#">{{i.title|truncatechars:35|safe}}</a></li>
+								<li class="list-inline-item">{{i.date}}</li>
+							</ul>
+						</div>
+						<a href="blog-single.html">
+							<div class="thumb rounded">
+								<div class="inner data-bg-image" data-bg-image="{{i.image.url}}"></div>
+							</div>
+						</a>
+					</div>
+					{% endfor %}
+
+				</div>
+
+				<div class="col-lg-4">
+
+					<!-- post tabs -->
+					<div class="post-tabs rounded bordered">
+						<!-- tab navs -->
+						<ul class="nav nav-tabs nav-pills nav-fill" id="postsTab" role="tablist">
+							<li class="nav-item" role="presentation"><button aria-controls="popular" aria-selected="true" class="nav-link active" data-bs-target="#popular" data-bs-toggle="tab" id="popular-tab" role="tab" type="button">Popular</button></li>
+							<li class="nav-item" role="presentation"><button aria-controls="recent" aria-selected="false" class="nav-link" data-bs-target="#recent" data-bs-toggle="tab" id="recent-tab" role="tab" type="button">Recent</button></li>
+						</ul>
+						<!-- tab contents -->
+						<div class="tab-content" id="postsTabContent">
+							<!-- loader -->
+							<div class="lds-dual-ring"></div>
+							<!-- popular posts -->
+							<div aria-labelledby="popular-tab" class="tab-pane fade show active" id="popular" role="tabpanel">
+								<!-- post -->
+								{% for i in popular %}
+								  
+								<div class="post post-list-sm circle">
+									<div class="thumb circle">
+										<a href="{% url 'single' i.id %}">
+											<div class="inner">
+											<img src="{{i.image.url}}" alt="post-title" />
+											</div>
+										</a>
+									</div>
+									<div class="details clearfix">
+										<h6 class="post-title my-0"><a href="blog-single.html">{{i.title|truncatechars:35|safe}}</a></h6>
+										<ul class="meta list-inline mt-1 mb-0">
+											<li class="list-inline-item">{{i.date}}</li>
+										</ul>
+									</div>
+								</div>
+								{% endfor %}
+
+								<!-- post -->
+								
+								
+							</div>
+							<!-- recent posts -->
+							<div aria-labelledby="recent-tab" class="tab-pane fade" id="recent" role="tabpanel">
+								<!-- post -->
+								{% for i in recent %}
+								  
+								<div class="post post-list-sm circle">
+									<div class="thumb circle">
+										<a href="{% url 'single' i.id %}">
+											<div class="inner">
+												<img src="{{i.image.url}}" alt="post-title" />
+											</div>
+										</a>
+									</div>
+									<div class="details clearfix">
+										<h6 class="post-title my-0"><a href="blog-single.html">{{i.title|truncatechars:35|safe}}</a></h6>
+										<ul class="meta list-inline mt-1 mb-0">
+											<li class="list-inline-item">{{i.date}}</li>
+										</ul>
+									</div>
+								</div>
+								{% endfor %}
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</section>
+
+	<!-- section main content -->
+	<section class="main-content">
+		<div class="container-xl">
+
+			<div class="row gy-4">
+
+				<div class="col-lg-8">
+
+					<!-- section header -->
+					<div class="spacer" data-height="50"></div>
+
+
+					<div class="spacer" data-height="50"></div>
+
+					<!-- section header -->
+					<div class="section-header">
+						<h3 class="section-title">Trending</h3>
+						<img src="{% static 'css/images/wave.svg' %}" class="wave" alt="wave" />
+					</div>
+
+					<div class="padding-30 rounded bordered">
+						<div class="row gy-5">
+							{% for i in trending %}
+
+							<div class="col-sm-6">
+								  
+								<!-- post large -->
+								<div class="post">
+									<div class="thumb rounded">
+										<a href="category.html" class="category-badge position-absolute">{{i.sports}}</a>
+										<span class="post-format">
+											<i class="icon-picture"></i>
+										</span>
+										<a href="{% url 'single' i.id %}">
+											<div class="inner">
+												<img src="{{i.image.url}}" alt="post-title" />
+											</div>
+										</a>
+									</div>
+									<ul class="meta list-inline mt-4 mb-0">
+										<li class="list-inline-item"><a href="#"><img src="{% static 'css/images/other/author-sm.png' %}" class="author" alt="author"/></a></li>
+										<li class="list-inline-item">{{i.date}}</li>
+									</ul>
+									<h5 class="post-title mb-3 mt-3"><a href="blog-single.html">{{i.title|truncatechars:40|safe}}</a></h5>
+									<p class="excerpt mb-0">{{i.title|truncatechars:35|safe}}</p>
+								</div>
+
+								<!-- post -->
+								
+							</div>
+							{% endfor %}
+						</div>
+					</div>
+
+					<div class="spacer" data-height="50"></div>
+
+					<!-- section header -->
+					<div class="section-header">
+						<h3 class="section-title">Latest Posts</h3>
+					</div>
+
+					<div class="padding-30 rounded bordered">
+
+						<div class="row">
+												
+							<div class="col-md-12 col-sm-6">
+								{% for i in latest %}
+								  
+								<!-- post -->
+								<div class="post post-list clearfix">
+									<div class="thumb rounded">
+										<span class="post-format-sm">
+											<i class="icon-picture"></i>
+										</span>
+										<a href="{% url 'single' i.id %}">
+											<div class="inner">
+												<img src="{{i.image.url}}" alt="post-title" />
+											</div>
+										</a>
+									</div>
+									<div class="details">
+										<ul class="meta list-inline mb-3">
+											<li class="list-inline-item"><a href="#">{{i.section}}</a></li>
+											<li class="list-inline-item">{{i.date}}</li>
+										</ul>
+										
+									</div>
+								</div>
+								{% endfor %}
+
+							</div>
+							
+						</div
+						>
+						<!-- load more button -->
+						<div class="text-center">
+							<button class="btn btn-simple">Load More</button>
+						</div>
+
+					</div>
+
+				</div>
+				<div class="col-lg-4">
+
+					<!-- sidebar -->
+					<div class="sidebar">
+
+
+						
+
+						<!-- widget categories -->
+						<div class="widget rounded">
+							<div class="widget-header text-center">
+								<h3 class="widget-title">Explore Topics</h3>
+								<img src="css/images/wave.svg" class="wave" alt="wave" />
+							</div>
+							<div class="widget-content">
+								<ul class="list">
+									{% for i in popular %}
+									  
+									<li><a href="{% url 'single' i.id %}">{{i.sports}}</a><span>(5)</span></li>
+									{% endfor %}
+									
+								</ul>
+							</div>
+							
+						</div>
+
+						<!-- widget newsletter -->
+						<div class="widget rounded">
+							<div class="widget-header text-center">
+								<h3 class="widget-title">Newsletter</h3>
+							</div>
+							<div class="widget-content">
+								<span class="newsletter-headline text-center mb-3">Join 70,000 subscribers!</span>
+								<form>
+									<div class="mb-2">
+										<input class="form-control w-100 text-center" placeholder="Email address…" type="email">
+									</div>
+									<button class="btn btn-default btn-full" type="submit">Sign Up</button>
+								</form>
+								<span class="newsletter-privacy text-center mt-3">By signing up, you agree to our <a href="#">Privacy Policy</a></span>
+							</div>		
+						</div>
+
+						<!-- widget post carousel -->
+						<div class="widget rounded">
+							<div class="widget-header text-center">
+								<h3 class="widget-title">Celebration</h3>
+								<img src="{% static 'css/images/wave.svg' %}" class="wave" alt="wave" />
+							</div>
+							<div class="widget-content">
+								<div class="post-carousel-widget">
+									<!-- post -->
+									<div class="post post-carousel">
+										<div class="thumb rounded">
+											<a href="category.html" class="category-badge position-absolute">How to</a>
+											<a href="blog-single.html">
+												<div class="inner">
+													<img src="{% static 'css/images/widgets/widget-carousel-1.jpg' %}" alt="post-title" />
+												</div>
+											</a>
+										</div>
+										<h5 class="post-title mb-0 mt-4"><a href="blog-single.html">5 Easy Ways You Can Turn Future Into Success</a></h5>
+										<ul class="meta list-inline mt-2 mb-0">
+											<li class="list-inline-item"><a href="#">Sujan</a></li>
+											<li class="list-inline-item"></li>
+										</ul>
+									</div>
+									<!-- post -->
+									<div class="post post-carousel">
+										<div class="thumb rounded">
+											<a href="category.html" class="category-badge position-absolute">Trending</a>
+											<a href="blog-single.html">
+												<div class="inner">
+													<img src="{% static 'css/images/widgets/widget-carousel-2.jpg' %}" alt="post-title" />
+												</div>
+											</a>
+										</div>
+										<h5 class="post-title mb-0 mt-4"><a href="blog-single.html">Master The Art Of Nature With These 7 Tips</a></h5>
+										<ul class="meta list-inline mt-2 mb-0">
+											<li class="list-inline-item"><a href="#">Sujan</a></li>
+											<li class="list-inline-item">29 March 2021</li>
+										</ul>
+									</div>
+									<!-- post -->
+									
+								</div>
+								<!-- carousel arrows -->
+								<div class="slick-arrows-bot">
+									<button type="button" data-role="none" class="carousel-botNav-prev slick-custom-buttons" aria-label="Previous"><i class="icon-arrow-left"></i></button>
+									<button type="button" data-role="none" class="carousel-botNav-next slick-custom-buttons" aria-label="Next"><i class="icon-arrow-right"></i></button>
+								</div>
+							</div>		
+						</div>
+
+						
+
+						<!-- widget tags -->
+						<div class="widget rounded">
+							<div class="widget-header text-center">
+								<h3 class="widget-title">Tag Clouds</h3>
+							</div>
+							<div class="widget-content">
+								<a href="#" class="tag">#Trending</a>
+								<a href="#" class="tag">#Popular</a>
+								<a href="#" class="tag">#Featured</a>
+								<a href="#" class="tag">#Latest</a>
+							</div>		
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+
+	<!-- instagram feed -->
+	<div class="instagram">
+		<div class="container-xl">
+			<!-- button -->
+			<a href="#" class="btn btn-default btn-instagram">@Sujanthadarai</a>
+			<!-- css/images -->
+			<div class="instagram-feed d-flex flex-wrap">
+				<div class="insta-item col-sm-2 col-6 col-md-2">
+					<a href="#">
+						<img src="{% static 'css/images/insta/insta-1.jpg' %}" alt="insta-title" />
+					</a>
+				</div>
+				<div class="insta-item col-sm-2 col-6 col-md-2">
+					<a href="#">
+						<img src="{% static 'css/images/insta/insta-2.jpg' %}" alt="insta-title" />
+					</a>
+				</div>
+				<div class="insta-item col-sm-2 col-6 col-md-2">
+					<a href="#">
+						<img src="{% static 'css/images/insta/insta-3.jpg' %}" alt="insta-title" />
+					</a>
+				</div>
+				<div class="insta-item col-sm-2 col-6 col-md-2">
+					<a href="#">
+						<img src="{% static 'css/images/insta/insta-4.jpg' %}" alt="insta-title" />
+					</a>
+				</div>
+				<div class="insta-item col-sm-2 col-6 col-md-2">
+					<a href="#">
+						<img src="{% static 'css/images/insta/insta-5.jpg' %}" alt="insta-title" />
+					</a>
+				</div>
+				<div class="insta-item col-sm-2 col-6 col-md-2">
+					<a href="#">
+						<img src="{% static 'css/images/insta/insta-6.jpg' %}" alt="insta-title" />
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- footer -->
+
+	{% endblock content %}
